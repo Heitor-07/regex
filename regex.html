@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="script.js"></script>
+    
+    <title>Regex</title>
+
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin: 0 auto;
+            width: 980px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        input {
+            width: 200px;
+            height: 44px;
+            font-size: 1.4rem;
+            margin-left: -6px;
+            padding-left: 5px;
+        }
+        input:focus {
+            outline: none;
+        }
+        label {
+            font-size: 1.2rem;
+            padding: 14px;
+            background-color: blueviolet;
+            color: #fff;
+        }
+        button {
+            width: 80px;
+            height: 50px;
+            font-size: 1.2rem;
+            margin-left: -6px;
+            padding: 13px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form">
+            <h1>Validador de CPF</h1>
+
+            <div>
+                <form action="" class="formulario">
+                    <label for="cpf">CPF</label>
+                    <input type="text" name="cpf" id="cpf" onblur="mascaraCpf(this)" maxlength="11" >
+                    <button type="submit" class="botaoCPF" disabled>Validar</button>
+                </form>
+            </div>
+            <span class="message"></span>
+        </div>
+        
+        <div class="form">
+            <h1>Validador de Celular</h1>
+
+            <div>
+                <form action="" class="formulario">
+                    <label for="celular">Celular</label>
+                    <input type="text" name="celular" id="celular" onblur="mascaraCelular(this)" maxlength="11">
+                    <button type="submit" class="botaoCelular" disabled>Validar</button>
+                </form>
+            </div>
+            <span class="messageCelular"></span>
+        </div>
+    </div>
+
+    <script> 
+
+        /* CPF */
+        
+        const numCPF = document.querySelector('#cpf');
+        const messageCPF = document.querySelector('.message');
+        const vbuttonCPF = document.querySelector('.botaoCPF');
+
+        const mascaraCpf = (valor) => {
+            numCPF.value = valor.value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+            if(numCPF.value.length == 14){
+                messageCPF.textContent = 'CPF válido!';
+                vbuttonCPF.removeAttribute('disabled', '');
+            }else{
+                messageCPF.textContent = 'Digite seu CPF!';
+            }
+        }
+
+        /* Celular */
+
+        const numCelular = document.querySelector('#celular');
+        const messageCelular = document.querySelector('.messageCelular');
+        const vbuttonCelular = document.querySelector('.botaoCelular');
+
+        const mascaraCelular = (valor) => {
+            numCelular.value = valor.value.replace(/(\d{2})(\d{5})(\d{4})/g,"\($1)\$2-\$3");
+            if(numCelular.value.length >= 11){
+                messageCelular.textContent = 'Celular válido!';
+                vbuttonCelular.removeAttribute('disabled', '');
+            }else{
+                messageCelular.textContent = 'Digite seu Celular e não esqueça do 9!';
+            }
+        }
+    </script>
+    
+</body>
+</html>
